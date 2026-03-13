@@ -1,0 +1,20 @@
+# wp-env
+.wp-env/
+
+# Composer
+vendor/
+
+# Node
+node_modules/
+
+# Build output
+assets/admin/dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp

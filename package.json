@@ -1,0 +1,25 @@
+{
+  "name": "nitrosparkwpplugin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:admin": "vite --config vite.admin.config.js",
+    "build:admin": "vite build --config vite.admin.config.js",
+    "build": "npm run build:admin"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@kucrut/vite-for-wp": "^0.12.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "vite": "^7.3.1"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.13.1"
+  }
+}

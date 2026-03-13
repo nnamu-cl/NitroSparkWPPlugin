@@ -1,0 +1,35 @@
+.nitrospark-wrap {
+	max-width: 1200px;
+	margin: 20px auto;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.nitrospark-header {
+	display: flex;
+	align-items: center;
+	gap: 24px;
+	padding-bottom: 16px;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 24px;
+}
+
+.nitrospark-header h1 {
+	margin: 0;
+	font-size: 24px;
+}
+
+.nitrospark-nav a {
+	text-decoration: none;
+	padding: 6px 12px;
+	border-radius: 4px;
+	color: #2271b1;
+}
+
+.nitrospark-nav a.active {
+	background: #2271b1;
+	color: #fff;
+}
+
+.nitrospark-dashboard h2 {
+	margin-top: 0;
+}
