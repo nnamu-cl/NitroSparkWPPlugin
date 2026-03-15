@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Dashboard from './pages/Dashboard';
+import ConnectPage from './pages/connect';
 
 const router = createHashRouter( [
 	{
@@ -14,5 +15,9 @@ const router = createHashRouter( [
 	},
 ] );
 
-const root = createRoot( document.getElementById( 'nitrospark-admin' ) );
-root.render( <RouterProvider router={ router } /> );
+const el = document.getElementById( 'nitrospark-admin' );
+const data = window.nitrospark ?? {};
+const isConnected = data.isConnected === '1' || data.isConnected === true;
+
+const root = createRoot( el );
+root.render( isConnected ? <RouterProvider router={ router } /> : <ConnectPage /> );

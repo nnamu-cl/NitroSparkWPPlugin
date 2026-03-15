@@ -1,0 +1,53 @@
+<?php
+/**
+ * NitroSpark Routes
+ *
+ * Defines and registers custom API routes for the NitroSpark using the Haruncpi\WpApi library.
+ *
+ * @package NitroSpark\Routes
+ */
+
+namespace NitroSpark\Routes;
+
+use NitroSpark\Libs\API\Route;
+
+Route::prefix(
+	NITROSPARK_ROUTE_PREFIX,
+	function ( Route $route ) {
+
+		// NitroSpark auth callback — public route, secured by state token only.
+		// NitroSpark POSTs { auth_key, state } here after the user connects their account.
+		$route->post( '/callback', '\NitroSpark\Controllers\Auth\Actions@callback' );
+		// $route->get( '/debug', '\NitroSpark\Controllers\Auth\Actions@debug' );
+
+		// Allow hooks to add more custom API routes.
+		do_action( 'nitrospark_api', $route );
+	}
+);
+
+// NitroSpark proxy routes — all go through the auth check below.
+// TODO: Auth@permission currently returns true; add real auth_key validation before release.
+Route::prefix(
+	NITROSPARK_ROUTE_PREFIX,
+	function ( Route $route ) {
+
+		// Posts.
+		$route->get( '/actions/posts', '\NitroSpark\Controllers\NitroSpark\Posts@get_all' );
+		$route->post( '/actions/posts', '\NitroSpark\Controllers\NitroSpark\Posts@create' );
+		$route->post( '/actions/posts/{id}', '\NitroSpark\Controllers\NitroSpark\Posts@update' );
+		$route->post( '/actions/posts/{id}/meta', '\NitroSpark\Controllers\NitroSpark\Posts@update_meta' );
+
+		// Media.
+		$route->get( '/actions/media', '\NitroSpark\Controllers\NitroSpark\Media@get_all' );
+		$route->get( '/actions/media/{id}', '\NitroSpark\Controllers\NitroSpark\Media@get_one' );
+		$route->post( '/actions/media', '\NitroSpark\Controllers\NitroSpark\Media@upload' );
+
+		// Categories & pages.
+		$route->get( '/actions/categories', '\NitroSpark\Controllers\NitroSpark\Taxonomy@get_categories' );
+		$route->get( '/actions/pages', '\NitroSpark\Controllers\NitroSpark\Taxonomy@get_pages' );
+
+		// WooCommerce (returns 503 when WooCommerce is not active).
+		$route->get( '/actions/wc/products', '\NitroSpark\Controllers\NitroSpark\WooCommerce@get_products' );
+		$route->get( '/actions/wc/products/categories', '\NitroSpark\Controllers\NitroSpark\WooCommerce@get_product_categories' );
+	}
+)->auth( '\NitroSpark\Controllers\NitroSpark\Auth@permission' );

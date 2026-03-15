@@ -1,5 +1,14 @@
 {
     "require": {
         "kucrut/vite-for-wp": "^0.12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "NitroSpark\\Admin\\": "includes/Admin/",
+            "NitroSpark\\Controllers\\": "includes/Controllers/",
+            "NitroSpark\\Core\\": "includes/Core/",
+            "NitroSpark\\Routes\\": "includes/Routes/",
+            "NitroSpark\\Libs\\API\\": "libs/API/"
+        }
     }
 }

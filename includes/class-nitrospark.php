@@ -29,14 +29,19 @@ final class NitroSpark {
 	}
 
 	private function load_dependencies(): void {
-		// Composer autoload (loads vite-for-wp PHP helper).
+		// Composer autoload (loads vite-for-wp PHP helper + PSR-4 classes).
 		$autoload = NITROSPARK_PLUGIN_DIR . 'vendor/autoload.php';
 		if ( file_exists( $autoload ) ) {
 			require_once $autoload;
 		}
 
-		require_once NITROSPARK_PLUGIN_DIR . 'includes/Admin/Menu.php';
-		require_once NITROSPARK_PLUGIN_DIR . 'includes/Admin/Assets.php';
+		// Load NitroSpark app URL from config.
+		$config         = require NITROSPARK_PLUGIN_DIR . 'config/plugin.php';
+		$nitrospark_url = ! empty( $config['nitrospark_debug'] )
+			? $config['nitrospark_url_dev']
+			: $config['nitrospark_url_prod'];
+		define( 'NITROSPARK_ROUTE_PREFIX', 'nitrospark/v1' );
+		define( 'NITROSPARK_APP_URL', $nitrospark_url );
 	}
 
 	private function register_hooks(): void {
@@ -44,6 +49,10 @@ final class NitroSpark {
 		register_deactivation_hook( NITROSPARK_PLUGIN_FILE, [ $this, 'deactivate' ] );
 
 		add_action( 'init', [ $this, 'load_textdomain' ] );
+
+		// Boot REST API.
+		$api = new NitroSpark\Core\Api();
+		$api->init();
 
 		if ( is_admin() ) {
 			$menu = new NitroSpark\Admin\Menu();
