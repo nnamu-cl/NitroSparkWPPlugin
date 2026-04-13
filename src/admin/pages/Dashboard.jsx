@@ -210,8 +210,17 @@ export default function Dashboard() {
 		<div className="space-y-8">
 
 			{ error && (
-				<div className="rounded-lg border border-destructive/40 bg-destructive/5 px-4 py-3 text-destructive">
-					{ error }
+				<div className="rounded-lg border border-destructive/40 bg-destructive/5 px-4 py-3 text-destructive space-y-2">
+					<p className="font-semibold">{ error }</p>
+					<details className="text-xs">
+						<summary className="cursor-pointer opacity-70 hover:opacity-100">Debug info</summary>
+						<div className="mt-2 space-y-1 font-mono">
+							<p><span className="opacity-60">App URL:</span> { window.nitrospark?.appUrl || '(not set)' }</p>
+							<p><span className="opacity-60">Connected:</span> { String(!!window.nitrospark?.isConnected) }</p>
+							<p><span className="opacity-60">Auth key:</span> { window.nitrospark?.authKey ? `****${window.nitrospark.authKey.slice(-4)}` : '(missing)' }</p>
+							<p><span className="opacity-60">WP user:</span> { window.nitrospark?.userInfo?.username || '(not set)' }</p>
+						</div>
+					</details>
 				</div>
 			) }
 

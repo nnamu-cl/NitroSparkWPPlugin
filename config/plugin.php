@@ -36,8 +36,8 @@ return array(
 
 	// Set to true to use the dev URL, false for production.
 	// Keep this false before committing/releasing.
-	'nitrospark_debug'    => true,
+	'nitrospark_debug'    => false,
 
 	'nitrospark_url_dev'  => 'http://localhost:3000',
-	'nitrospark_url_prod' => 'http://app.nitrospark.ai',
+	'nitrospark_url_prod' => 'https://app.nitrospark.ai',
 );

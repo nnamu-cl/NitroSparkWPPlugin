@@ -1,12 +1,12 @@
 <?php
 /**
  * Plugin Name:       NitroSpark
- * Plugin URI:        https://github.com/namusanga/NitroSparkWPPlugin
- * Description:       NitroSpark WordPress Plugin.
- * Version:           0.1.0
- * Requires at least: 6.4
+ * Plugin URI:        https://nitrospark.ai/
+ * Description:       Connect your WordPress site to NitroSpark AI for automated content publishing, internal linking, SEO optimization, and WooCommerce product analysis.
+ * Version:           1.0.0
+ * Requires at least: 6.0
  * Requires PHP:      8.1
- * Author:            namusanga
+ * Author:            nitrospark
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       nitrospark
