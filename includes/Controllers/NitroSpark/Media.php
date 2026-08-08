@@ -14,8 +14,6 @@ class Media {
 	 * @return \WP_REST_Response
 	 */
 	public function get_all( \WP_REST_Request $request ): \WP_REST_Response {
-		wp_set_current_user( (int) get_option( 'nitrospark_auth_user_id' ) );
-
 		$internal = new \WP_REST_Request( 'GET', '/wp/v2/media' );
 		$internal->set_query_params( $request->get_query_params() );
 
@@ -29,8 +27,6 @@ class Media {
 	 * @return \WP_REST_Response
 	 */
 	public function get_one( \WP_REST_Request $request ): \WP_REST_Response {
-		wp_set_current_user( (int) get_option( 'nitrospark_auth_user_id' ) );
-
 		$id       = (int) $request->get_param( 'id' );
 		$internal = new \WP_REST_Request( 'GET', "/wp/v2/media/{$id}" );
 
@@ -48,11 +44,13 @@ class Media {
 	 * @return \WP_REST_Response
 	 */
 	public function upload( \WP_REST_Request $request ): \WP_REST_Response {
-		wp_set_current_user( (int) get_option( 'nitrospark_auth_user_id' ) );
-
 		$internal = new \WP_REST_Request( 'POST', '/wp/v2/media' );
 		// set_file_params makes get_file_params() non-empty, which triggers
 		// WP's file-upload path inside WP_REST_Attachments_Controller::create_item().
+		// Nonce verification does not apply here: this is a server-to-server REST
+		// route authenticated by the X-NitroSpark-Key header (Auth@permission),
+		// and the upload itself is capability-checked by core against the
+		// connected user via rest_do_request().
 		$internal->set_file_params( $_FILES ); // phpcs:ignore WordPress.Security.NonceVerification
 		$internal->set_body_params( $request->get_body_params() );
 

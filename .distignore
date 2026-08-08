@@ -1,0 +1,27 @@
+# Directories excluded from the distributed plugin zip.
+.git
+.github
+node_modules
+src
+
+# Unreferenced placeholder assets (admin app ships in assets/admin/dist).
+/assets/css
+/assets/js
+/assets/img
+
+# Build tooling and dev config.
+.wp-env.json
+.vscode
+build.fish
+.distignore
+.gitignore
+package.json
+package-lock.json
+vite.admin.config.js
+jsconfig.json
+components.json
+composer.lock
+
+# Docs / misc not needed in the distribution.
+REFERENCE_NITROWPINITIAL.md
+start.sh

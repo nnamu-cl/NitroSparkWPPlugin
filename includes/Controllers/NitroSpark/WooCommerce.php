@@ -21,8 +21,6 @@ class WooCommerce {
 			return new \WP_REST_Response( array( 'error' => 'WooCommerce is not active.' ), 503 );
 		}
 
-		wp_set_current_user( (int) get_option( 'nitrospark_auth_user_id' ) );
-
 		$internal = new \WP_REST_Request( 'GET', '/wc/v3/products' );
 		$internal->set_query_params( $request->get_query_params() );
 
@@ -39,8 +37,6 @@ class WooCommerce {
 		if ( ! class_exists( 'WooCommerce' ) ) {
 			return new \WP_REST_Response( array( 'error' => 'WooCommerce is not active.' ), 503 );
 		}
-
-		wp_set_current_user( (int) get_option( 'nitrospark_auth_user_id' ) );
 
 		$internal = new \WP_REST_Request( 'GET', '/wc/v3/products/categories' );
 		$internal->set_query_params( $request->get_query_params() );

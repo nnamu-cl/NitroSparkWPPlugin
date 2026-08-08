@@ -1,20 +1,27 @@
 #! /usr/bin/env fish
-npm run build
+# Builds the admin app and packages a clean distribution zip.
+# Everything listed in .distignore is excluded, and the zip's top-level
+# folder is "nitrospark" (the plugin slug), as WordPress.org expects.
 
-cd ..
+set -l plugin_dir (dirname (realpath (status filename)))
+cd $plugin_dir; or exit 1
 
-zip -y -r nitrosparkwpplugin_build.zip NitroSparkWPPlugin/ \
-  -x "NitroSparkWPPlugin/node_modules/*" \
-  -x "NitroSparkWPPlugin/src/*" \
-  -x "NitroSparkWPPlugin/package.json" \
-  -x "NitroSparkWPPlugin/package-lock.json" \
-  -x "NitroSparkWPPlugin/vite.admin.config.js" \
-  -x "NitroSparkWPPlugin/jsconfig.json" \
-  -x "NitroSparkWPPlugin/components.json" \
-  -x "NitroSparkWPPlugin/start.sh" \
-  -x "NitroSparkWPPlugin/REFERENCE_NITROWPINITIAL.md"
+npm run build; or exit 1
+composer install --no-dev --optimize-autoloader; or exit 1
 
+set -l tmp (mktemp -d)
+set -l stage $tmp/nitrospark
+mkdir -p $stage
 
-if test -e nitrosparkwpplugin_build.zip
-    echo "Successfully created build in parent folder!"
+rsync -a --exclude-from=.distignore ./ $stage/
+
+set -l out (realpath ..)/nitrospark.zip
+rm -f $out
+cd $tmp
+zip -y -r -q $out nitrospark
+cd $plugin_dir
+rm -rf $tmp
+
+if test -e $out
+    echo "Successfully created $out"
 end

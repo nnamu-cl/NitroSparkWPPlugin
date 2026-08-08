@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       NitroSpark
+ * Plugin Name:       NitroSpark – Automated SEO and Content Marketing
  * Plugin URI:        https://nitrospark.ai/
  * Description:       Connect your WordPress site to NitroSpark AI for automated content publishing, internal linking, SEO optimization, and WooCommerce product analysis.
  * Version:           1.0.0
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NITROSPARK_VERSION', '0.1.0' );
+define( 'NITROSPARK_VERSION', '1.0.0' );
 define( 'NITROSPARK_PLUGIN_FILE', __FILE__ );
 define( 'NITROSPARK_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'NITROSPARK_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

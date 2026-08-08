@@ -1,14 +1,14 @@
-=== NitroSpark ===
-Contributors: NITROSPARK LTD
-Tags: tag1, tag2, tag3, tag4, tag5
+=== NitroSpark – Automated SEO and Content Marketing ===
+Contributors: namusanga
+Tags: seo, ai, content, automation, woocommerce
 Requires at least: 6.0
-Tested up to: 6.9.4
-Requires PHP: 8.0
+Tested up to: 7.0
+Requires PHP: 8.1
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Automate your WordPress content publishing, internal linking, SEO optimization, and WooCommerce product analysis using AI through NitroSpark AI's WordPress Integration.
+Automate your WordPress content publishing, internal linking, SEO optimization, and WooCommerce product analysis with NitroSpark AI.
 
 == Description ==
 
@@ -16,15 +16,14 @@ NitroSpark AI automatically generates SEO-optimized content, publishes it direct
 
 This plugin connects your WordPress or WooCommerce site to your NitroSpark AI account, enabling the platform to publish content, inject internal links, manage images, and analyze your store's products without manual intervention.
 
-**What this plugin does:**
+**Key Features:**
 
-* Authenticates your WordPress site with NitroSpark AI
-* Receives and publishes AI-generated blog posts and pages (live or as drafts)
-* Enables AutoGrowth scheduled publishing directly to your site
-* Runs the Internal Link Injector to strengthen your site structure
-* Handles AI-generated and royalty-free image delivery
-* Supports WooCommerce product analysis and market research (requires WooCommerce)
-* Compatible with Elementor for themed content publishing
+* **Automated content publishing** — receives AI-generated blog posts and pages from your NitroSpark AI account and publishes them live or as drafts for review
+* **AutoGrowth scheduled publishing** — content is written and published on the schedule you configure in your NitroSpark dashboard
+* **Internal Link Injector** — automatically strengthens your site structure by adding relevant internal links to your content
+* **Image delivery** — AI-generated and royalty-free images are uploaded straight into your media library
+* **WooCommerce product analysis** — lets NitroSpark analyze your product catalog for market research and content targeting (requires WooCommerce)
+* **Elementor support** — publishes themed content compatible with Elementor layouts
 
 **Requirements:**
 
@@ -32,24 +31,36 @@ This plugin connects your WordPress or WooCommerce site to your NitroSpark AI ac
 * WooCommerce (optional — required only for product analysis and market research features)
 * Elementor (optional — for themed content support)
 
+**How authentication works:**
+
+You connect your site from the NitroSpark admin page in your WordPress dashboard. This generates a one-time connection link; after you approve the connection in your NitroSpark account, NitroSpark issues a secret key for your site. Every subsequent request from the NitroSpark platform to your site must carry this key and is executed with the permissions of the administrator who connected the site. Your WordPress username and password are never transmitted to or stored by NitroSpark AI.
+
 **Third-Party Service Disclosure:**
 
-This plugin connects your WordPress site to the NitroSpark AI platform ([https://app.nitrospark.ai](https://nitrospark.ai/)). All content generation, scheduling, and AI processing occurs on NitroSpark's servers. The plugin transmits site data and authentication credentials to NitroSpark to enable automated publishing and analysis. Your actual WordPress Credentials are never transmitted to or stored by NitroSpark AI.
+This plugin connects your WordPress site to the NitroSpark AI platform ([https://app.nitrospark.ai](https://app.nitrospark.ai)). All content generation, scheduling, and AI processing occurs on NitroSpark's servers. The plugin transmits site data (site URL, site name, published content, media, and — with WooCommerce — product catalog data) and an authentication key to NitroSpark to enable automated publishing and analysis.
 
 * [NitroSpark AI Privacy Policy](https://nitrospark.ai/privacy-policy)
+* [NitroSpark AI Terms of Service](https://nitrospark.ai/terms)
 
-**Key Features:**
+== Source Code & Build Instructions ==
 
-* Feature one - explain what it does
-* Feature two - explain what it does
-* Feature three - explain what it does
+The admin interface of this plugin is a React application bundled with Vite. The compiled files live in `assets/admin/dist/`; the human-readable source code is in the `src/` directory of the public repository:
+
+https://github.com/nnamu-cl/NitroSparkWPPlugin
+
+To build from source:
+
+1. `git clone https://github.com/nnamu-cl/NitroSparkWPPlugin`
+2. `npm install`
+3. `npm run build` — compiles `src/admin/` into `assets/admin/dist/`
+4. `composer install --no-dev` — installs the PHP dependencies (vite-for-wp asset loader)
 
 == Installation ==
 
 1. Upload the plugin files to the `/wp-content/plugins/nitrospark` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
-3. Navigate to Settings → NitroSpark to enter your NitroSpark AI account credentials and authenticate your site.
-4. Once authenticated, content publishing and automation features are controlled from your NitroSpark AI dashboard at [app.nitrospark.ai](https://app.nitrospark.ai).
+3. Open the NitroSpark menu in your WordPress admin and click Connect to link your site to your NitroSpark AI account.
+4. Once connected, content publishing and automation features are controlled from your NitroSpark AI dashboard at [app.nitrospark.ai](https://app.nitrospark.ai).
 
 == Frequently Asked Questions ==
 
@@ -68,20 +79,11 @@ All content generation and AI processing happens on NitroSpark's servers. The pl
 = Can I review content before it goes live? =
 Yes. You can configure NitroSpark to publish directly to live or send content to drafts for review and approval before publishing.
 
-= Where can I get support? =
-Contact the NitroSpark team at [nitrospark.ai/contact-us](https://nitrospark.ai/contact-us/) or email info@nitrospark.ai. Navigate to Settings → NitroSpark in your WordPress admin dashboard.
-
-= Does this plugin work with WooCommerce? =
-Yes/No - explain compatibility here.
+= Are my WordPress credentials shared with NitroSpark? =
+No. Your WordPress username and password never leave your site. The connection uses a site-specific secret key issued during the connect flow, which you can revoke at any time by disconnecting the site.
 
 = Where can I get support? =
-Visit [your support URL] or use the WordPress.org support forum for this plugin.
-
-== Screenshots ==
-
-1. Description of screenshot-1.png (place in /assets/ folder)
-2. Description of screenshot-2.png
-3. Description of screenshot-3.png
+Contact the NitroSpark team at [nitrospark.ai/contact-us](https://nitrospark.ai/contact-us/) or email info@nitrospark.ai.
 
 == Changelog ==
 

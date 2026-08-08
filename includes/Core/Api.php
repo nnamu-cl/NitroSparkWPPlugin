@@ -4,7 +4,7 @@ namespace NitroSpark\Core;
 
 use NitroSpark\Libs\API\Config;
 
-class API {
+class Api {
 
 	public function init() {
 		Config::set_route_file( NITROSPARK_PLUGIN_DIR . 'includes/Routes/Api.php' )

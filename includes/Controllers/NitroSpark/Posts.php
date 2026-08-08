@@ -17,8 +17,6 @@ class Posts {
 	 * @return \WP_REST_Response
 	 */
 	public function get_all( \WP_REST_Request $request ): \WP_REST_Response {
-		wp_set_current_user( (int) get_option( 'nitrospark_auth_user_id' ) );
-
 		$internal = new \WP_REST_Request( 'GET', '/wp/v2/posts' );
 		$internal->set_query_params( $request->get_query_params() );
 
@@ -32,8 +30,6 @@ class Posts {
 	 * @return \WP_REST_Response
 	 */
 	public function create( \WP_REST_Request $request ): \WP_REST_Response {
-		wp_set_current_user( (int) get_option( 'nitrospark_auth_user_id' ) );
-
 		$internal = new \WP_REST_Request( 'POST', '/wp/v2/posts' );
 		$internal->set_body( $request->get_body() );
 		$internal->set_header( 'Content-Type', 'application/json' );
@@ -48,8 +44,6 @@ class Posts {
 	 * @return \WP_REST_Response
 	 */
 	public function update( \WP_REST_Request $request ): \WP_REST_Response {
-		wp_set_current_user( (int) get_option( 'nitrospark_auth_user_id' ) );
-
 		$id       = (int) $request->get_param( 'id' );
 		$internal = new \WP_REST_Request( 'POST', "/wp/v2/posts/{$id}" );
 		$internal->set_body( $request->get_body() );
@@ -67,8 +61,6 @@ class Posts {
 	 * @return \WP_REST_Response
 	 */
 	public function update_meta( \WP_REST_Request $request ): \WP_REST_Response {
-		wp_set_current_user( (int) get_option( 'nitrospark_auth_user_id' ) );
-
 		$id       = (int) $request->get_param( 'id' );
 		$internal = new \WP_REST_Request( 'POST', "/wp/v2/posts/{$id}/meta" );
 		$internal->set_body( $request->get_body() );
