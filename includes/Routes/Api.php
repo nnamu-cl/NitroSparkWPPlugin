@@ -11,6 +11,10 @@ namespace NitroSpark\Routes;
 
 use NitroSpark\Libs\API\Route;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 Route::prefix(
 	NITROSPARK_ROUTE_PREFIX,
 	function ( Route $route ) {

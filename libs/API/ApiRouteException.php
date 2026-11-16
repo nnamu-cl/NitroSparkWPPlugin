@@ -10,6 +10,10 @@ namespace NitroSpark\Libs\API;
 
 use Exception;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class ApiRouteException
  *

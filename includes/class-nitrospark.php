@@ -48,8 +48,6 @@ final class NitroSpark {
 		register_activation_hook( NITROSPARK_PLUGIN_FILE, [ $this, 'activate' ] );
 		register_deactivation_hook( NITROSPARK_PLUGIN_FILE, [ $this, 'deactivate' ] );
 
-		add_action( 'init', [ $this, 'load_textdomain' ] );
-
 		// Boot REST API.
 		$api = new NitroSpark\Core\Api();
 		$api->init();
@@ -71,11 +69,4 @@ final class NitroSpark {
 		flush_rewrite_rules();
 	}
 
-	public function load_textdomain(): void {
-		load_plugin_textdomain(
-			'nitrospark',
-			false,
-			dirname( plugin_basename( NITROSPARK_PLUGIN_FILE ) ) . '/languages'
-		);
-	}
 }

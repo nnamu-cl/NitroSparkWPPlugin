@@ -2,6 +2,10 @@
 
 namespace NitroSpark\Controllers\NitroSpark;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Proxy controller for WooCommerce REST endpoints.
  *

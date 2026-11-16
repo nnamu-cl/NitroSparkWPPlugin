@@ -1,8 +1,8 @@
-=== NitroSpark – Automated SEO and Content Marketing ===
+=== NitroSpark ===
 Contributors: namusanga
 Tags: seo, ai, content, automation, woocommerce
-Requires at least: 6.0
-Tested up to: 7.0
+Requires at least: 6.6
+Tested up to: 7.1
 Requires PHP: 8.1
 Stable tag: 1.0.0
 License: GPLv2 or later
@@ -35,12 +35,20 @@ This plugin connects your WordPress or WooCommerce site to your NitroSpark AI ac
 
 You connect your site from the NitroSpark admin page in your WordPress dashboard. This generates a one-time connection link; after you approve the connection in your NitroSpark account, NitroSpark issues a secret key for your site. Every subsequent request from the NitroSpark platform to your site must carry this key and is executed with the permissions of the administrator who connected the site. Your WordPress username and password are never transmitted to or stored by NitroSpark AI.
 
-**Third-Party Service Disclosure:**
+== External services ==
 
-This plugin connects your WordPress site to the NitroSpark AI platform ([https://app.nitrospark.ai](https://app.nitrospark.ai)). All content generation, scheduling, and AI processing occurs on NitroSpark's servers. The plugin transmits site data (site URL, site name, published content, media, and — with WooCommerce — product catalog data) and an authentication key to NitroSpark to enable automated publishing and analysis.
+This plugin connects to the NitroSpark AI platform, a third-party service operated by NitroSpark. It is required for every feature of the plugin: content generation, scheduling and AI processing happen on NitroSpark's servers, not on your site.
 
-* [NitroSpark AI Privacy Policy](https://nitrospark.ai/privacy-policy)
-* [NitroSpark AI Terms of Service](https://nitrospark.ai/terms)
+Nothing is sent to NitroSpark until a site administrator clicks Connect on the NitroSpark admin page.
+
+* **When you click Connect:** your browser is sent to https://app.nitrospark.ai/wordpress-connect with your site URL, site name, the plugin's callback URL and a one-time state token. After you approve the connection, NitroSpark sends a site-specific secret key back to your site, which the plugin stores.
+* **When the NitroSpark admin page loads (once connected):** the page requests your NitroSpark account details and content library from https://app.nitrospark.ai, authenticated with the stored key.
+* **While connected:** the NitroSpark platform calls this plugin's REST endpoints (authenticated with the stored key) to read and publish posts and pages, upload media to your library, read categories and pages, and, if WooCommerce is active, read your product catalog and product categories.
+
+Deleting the plugin removes the stored key; the connection can also be revoked from your NitroSpark account, after which the key no longer works.
+
+* NitroSpark AI Terms of Service: https://nitrospark.ai/terms
+* NitroSpark AI Privacy Policy: https://nitrospark.ai/privacy-policy
 
 == Source Code & Build Instructions ==
 

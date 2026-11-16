@@ -4,6 +4,10 @@ namespace NitroSpark\Core;
 
 use NitroSpark\Libs\API\Config;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class Api {
 
 	public function init() {

@@ -33,8 +33,9 @@ class Assets {
 			NITROSPARK_PLUGIN_DIR . 'assets/admin/dist',
 			'src/admin/main.jsx',
 			[
-				'handle'    => 'nitrospark-admin',
-				'in-footer' => true,
+				'handle'       => 'nitrospark-admin',
+				'in-footer'    => true,
+				'dependencies' => [ 'react', 'react-dom', 'react-jsx-runtime', 'wp-element' ],
 			]
 		);
 	}

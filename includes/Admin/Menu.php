@@ -10,7 +10,7 @@ class Menu {
 
     public function register(): void {
         add_action( 'admin_menu', [ $this, 'add_menu_pages' ] );
-        add_action( 'admin_footer', [ $this, 'open_external_links_in_new_tab' ] );
+        add_action( 'admin_enqueue_scripts', [ $this, 'open_external_links_in_new_tab' ] );
     }
 
     public function add_menu_pages(): void {
@@ -47,17 +47,18 @@ class Menu {
         $submenu['nitrospark'][] = [ __( 'Schedule', 'nitrospark' ), 'manage_options', $app_url . '/autogrowth' ];
     }
 
+    /**
+     * Opens the external NitroSpark submenu links in a new tab.
+     */
     public function open_external_links_in_new_tab(): void {
-        ?>
-        <script>
-            document.querySelectorAll( '#toplevel_page_nitrospark .wp-submenu a' ).forEach( function( a ) {
-                if ( a.href.indexOf( 'http' ) === 0 && a.href.indexOf( window.location.origin ) === -1 ) {
-                    a.target = '_blank';
-                    a.rel    = 'noopener noreferrer';
-                }
-            });
-        </script>
-        <?php
+        wp_register_script( 'nitrospark-menu', false, [], NITROSPARK_VERSION, true );
+        wp_enqueue_script( 'nitrospark-menu' );
+        wp_add_inline_script(
+            'nitrospark-menu',
+            "document.querySelectorAll( '#toplevel_page_nitrospark .wp-submenu a' ).forEach( function ( a ) {"
+            . " if ( a.href.indexOf( 'http' ) === 0 && a.href.indexOf( window.location.origin ) === -1 ) {"
+            . " a.target = '_blank'; a.rel = 'noopener noreferrer'; } } );"
+        );
     }
 
     public function render_page(): void {

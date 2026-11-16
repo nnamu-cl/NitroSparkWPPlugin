@@ -9,6 +9,10 @@ namespace NitroSpark\Libs\API;
 
 use NitroSpark\Libs\API\ApiRouteException;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class ApiConfig
  *
@@ -81,19 +85,5 @@ class Config {
 			}
 		);
 
-		/**
-		* Incorporate the user property into the callback request object.
-		* This property will yield a WP_User object if the user is logged in;
-		* otherwise, it will return null.
-		 */
-		add_filter(
-			'rest_request_before_callbacks',
-			function( $response, $handler, \WP_REST_Request $request ) {
-				$request->user = null;
-				return $response;
-			},
-			10,
-			3
-		);
 	}
 }

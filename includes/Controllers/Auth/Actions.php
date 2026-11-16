@@ -2,6 +2,10 @@
 
 namespace NitroSpark\Controllers\Auth;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Handles the NitroSpark authentication callback.
  *

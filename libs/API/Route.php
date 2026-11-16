@@ -10,6 +10,10 @@ namespace NitroSpark\Libs\API;
 
 use NitroSpark\Libs\API\ApiRouteException;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class ApiRoute
  *
@@ -383,7 +387,7 @@ class Route {
 				}
 
 				if ( ! isset( $route->prefix ) ) {
-					throw new ApiRouteException( "{$route->endpoint} must have a prefix" );
+					throw new ApiRouteException( esc_html( $route->endpoint ) . ' must have a prefix' );
 				}
 
 				$endpoint = self::convert_to_regex( $route->endpoint );

@@ -2,6 +2,10 @@
 
 namespace NitroSpark\Controllers\NitroSpark;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Permission check for all NitroSpark proxy routes.
  *
