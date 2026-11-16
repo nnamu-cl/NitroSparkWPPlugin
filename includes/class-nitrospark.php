@@ -35,13 +35,12 @@ final class NitroSpark {
 			require_once $autoload;
 		}
 
-		// Load NitroSpark app URL from config.
-		$config         = require NITROSPARK_PLUGIN_DIR . 'config/plugin.php';
-		$nitrospark_url = ! empty( $config['nitrospark_debug'] )
-			? $config['nitrospark_url_dev']
-			: $config['nitrospark_url_prod'];
+		// NitroSpark app URL: config default, overridable in wp-config.php.
+		$config = require NITROSPARK_PLUGIN_DIR . 'config/plugin.php';
 		define( 'NITROSPARK_ROUTE_PREFIX', 'nitrospark/v1' );
-		define( 'NITROSPARK_APP_URL', $nitrospark_url );
+		if ( ! defined( 'NITROSPARK_APP_URL' ) ) {
+			define( 'NITROSPARK_APP_URL', untrailingslashit( $config['nitrospark_url'] ) );
+		}
 	}
 
 	private function register_hooks(): void {

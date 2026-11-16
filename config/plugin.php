@@ -6,7 +6,6 @@
  * @since 1.0.0
  */
 
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -18,14 +17,10 @@ return array(
 	| NitroSpark App URL
 	|--------------------------------------------------------------------------
 	|
-	| Set 'nitrospark_debug' to true to point the plugin at a local
-	| development instance of the NitroSpark platform. Keep it false
-	| for releases.
+	| For local development against another NitroSpark instance, define
+	| NITROSPARK_APP_URL in wp-config.php instead of editing this file.
 	|
 	*/
 
-	'nitrospark_debug'    => false,
-
-	'nitrospark_url_dev'  => 'http://localhost:3000',
-	'nitrospark_url_prod' => 'https://app.nitrospark.ai',
+	'nitrospark_url' => 'https://app.nitrospark.ai',
 );

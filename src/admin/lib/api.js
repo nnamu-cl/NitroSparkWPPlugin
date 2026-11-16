@@ -1,11 +1,11 @@
 /**
  * NitroSpark API service
  *
- * - nextjsFetch()  – calls the Next.js app (dev: localhost:3000, prod: app.nitrospark.ai)
+ * - nextjsFetch()  – calls the NitroSpark app (https://app.nitrospark.ai)
  *                    base URL comes from window.nitrospark.appUrl (set by Assets.php)
- * - pythonFetch()  – calls the Python backend (backendserver.nitrosparkseo.com)
  *
- * Both attach X-WPC-Api-Key and emit structured console debug logs.
+ * Requests carry X-WPC-Api-Key. Console debug logs are only written when
+ * WordPress runs with SCRIPT_DEBUG enabled (window.nitrospark.debug).
  */
 
 import { ENDPOINTS } from '@/lib/endpoints';
@@ -15,8 +15,8 @@ import { ENDPOINTS } from '@/lib/endpoints';
 // ---------------------------------------------------------------------------
 
 function getConfig() {
-	const { appUrl = '', authKey = '' } = window.nitrospark || {};
-	return { appUrl, authKey };
+	const { appUrl = '', authKey = '', debug = false } = window.nitrospark || {};
+	return { appUrl, authKey, debug: debug === true || debug === '1' };
 }
 
 /** Build a full Next.js URL from a path stored in ENDPOINTS.NEXTJS */
@@ -30,6 +30,7 @@ function nextjsUrl(path) {
 // ---------------------------------------------------------------------------
 
 function logRequest(method, url, headers) {
+	if (!getConfig().debug) return;
 	const safeHeaders = {
 		...headers,
 		// Mask all but the last 4 chars of the API key
@@ -42,11 +43,13 @@ function logRequest(method, url, headers) {
 }
 
 function logResponse(url, status, data) {
+	if (!getConfig().debug) return;
 	console.log(`Response [${status}]:`, data);
 	console.groupEnd();
 }
 
 function logError(url, error) {
+	if (!getConfig().debug) return;
 	console.error(`Error:`, error);
 	console.groupEnd();
 }
@@ -98,26 +101,11 @@ async function wpcFetch(url, options = {}) {
 }
 
 // ---------------------------------------------------------------------------
-// Next.js fetch  (dev → localhost:3000 / prod → app.nitrospark.ai)
+// NitroSpark app fetch
 // ---------------------------------------------------------------------------
 
 export function nextjsFetch(path, options = {}) {
 	return wpcFetch(nextjsUrl(path), options);
-}
-
-// ---------------------------------------------------------------------------
-// Python backend fetch  (always backendserver.nitrosparkseo.com)
-// ---------------------------------------------------------------------------
-
-export function pythonFetch(path, options = {}) {
-	const { authKey } = getConfig();
-	return wpcFetch(`https://backendserver.nitrosparkseo.com${path}`, {
-		...options,
-		headers: {
-			'X-WPC-Api-Key': authKey,
-			...options.headers,
-		},
-	});
 }
 
 // ---------------------------------------------------------------------------

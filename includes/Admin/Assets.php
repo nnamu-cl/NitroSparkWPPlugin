@@ -53,12 +53,13 @@ class Assets {
 				'avatar'   => get_avatar_url( $current_user->ID ),
 			],
 			'isConnected' => ! empty( get_option( 'nitrospark_auth_key' ) ),
+			'debug'       => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
 			'connectUrl'  => $this->get_connect_url(),
 		] );
 	}
 
 	private function get_connect_url(): string {
-		$state = wp_generate_password( 32, false );
+		$state = bin2hex( random_bytes( 16 ) );
 		set_transient( 'nitrospark_connect_state_' . $state, get_current_user_id(), 10 * MINUTE_IN_SECONDS );
 
 		return add_query_arg(

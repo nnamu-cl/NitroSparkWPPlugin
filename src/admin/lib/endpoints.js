@@ -1,18 +1,10 @@
 /**
  * NitroSpark API Endpoints Registry
  *
- * Three distinct backends:
- *
- *   NEXTJS   – Next.js application
- *              Prod : https://app.nitrospark.ai
- *              Dev  : http://localhost:3000
- *              Base URL is injected at runtime via window.nitrospark.appUrl
- *              (set by Assets.php from NITROSPARK_APP_URL).
- *              Entries here store PATHS ONLY — prepend appUrl in api.js.
- *
- *   PYTHON   – Python backend
- *              https://backendserver.nitrosparkseo.com
- *              Full URLs stored here (base never changes).
+ *   NEXTJS    – NitroSpark application (https://app.nitrospark.ai).
+ *               Base URL is injected at runtime via window.nitrospark.appUrl
+ *               (set by Assets.php from NITROSPARK_APP_URL).
+ *               Entries here store PATHS ONLY — prepend appUrl in api.js.
  *
  *   WP_PLUGIN – WordPress REST API registered by this plugin (local).
  *               Full paths stored here (relative to WP root).
@@ -25,15 +17,10 @@
 export const BASE_URLS = {
 	/** Next.js app — production */
 	NEXTJS_PROD: 'https://app.nitrospark.ai',
-	/** Next.js app — local dev */
-	NEXTJS_DEV:  'http://localhost:3000',
-	/** Python backend — always this URL */
-	PYTHON:      'https://backendserver.nitrosparkseo.com',
 	/** WordPress REST API base path */
 	WP:          '/wp-json/nitrospark/v1',
 };
 
-const PYTHON_BASE = BASE_URLS.PYTHON;
 const WP_BASE     = BASE_URLS.WP;
 
 // ---------------------------------------------------------------------------
@@ -92,14 +79,6 @@ const NEXTJS = {
 };
 
 // ---------------------------------------------------------------------------
-// Python backend  — full URLs
-// ---------------------------------------------------------------------------
-
-const PYTHON = {
-	// TODO: add Python backend endpoints here as they are documented
-};
-
-// ---------------------------------------------------------------------------
 // WordPress Plugin REST API  — full paths (relative to WP root)
 // ---------------------------------------------------------------------------
 
@@ -107,8 +86,6 @@ const WP_PLUGIN = {
 	AUTH: {
 		/** POST – receives auth_key from NitroSpark after OAuth */
 		CALLBACK: `${WP_BASE}/callback`,
-		/** GET  – debug / health-check */
-		DEBUG:    `${WP_BASE}/debug`,
 	},
 
 	POSTS: {
@@ -141,6 +118,5 @@ const WP_PLUGIN = {
 
 export const ENDPOINTS = {
 	NEXTJS,
-	PYTHON,
 	WP_PLUGIN,
 };
