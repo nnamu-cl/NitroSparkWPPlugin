@@ -26,6 +26,12 @@ export default function ConnectPage() {
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
+					<p className="mb-4 text-sm text-muted-foreground">
+						Connecting creates a dedicated &ldquo;NitroSpark&rdquo; user on this site.
+						NitroSpark publishes through that user, which can only create and edit
+						posts and upload media. It has no access to plugins, themes, users or
+						settings, and it cannot sign in.
+					</p>
 					<Button className="w-full" onClick={ handleConnect }>
 						Connect NitroSpark account
 					</Button>

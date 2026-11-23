@@ -2,6 +2,8 @@
 
 namespace NitroSpark\Controllers\Auth;
 
+use NitroSpark\Core\ServiceUser;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -107,12 +109,24 @@ class Actions {
 			);
 		}
 
-		// Persist the auth key and the connected user site-wide. Not autoloaded:
-		// the key is only needed on NitroSpark REST requests and the admin page.
-		update_option( 'nitrospark_auth_key', $auth_key, false );
-		update_option( 'nitrospark_auth_user_id', $user_id, false );
+		// NitroSpark requests run as a dedicated, least-privilege publisher
+		// account, never as the administrator who approved the connection.
+		$service_user = ServiceUser::ensure();
+		if ( is_wp_error( $service_user ) ) {
+			$this->log( 'Could not create the NitroSpark publisher account: ' . $service_user->get_error_message() );
+			return new \WP_Error(
+				'nitrospark_service_user_failed',
+				__( 'Could not create the NitroSpark publisher account.', 'nitrospark' ),
+				array( 'status' => 500 )
+			);
+		}
 
-		$this->log( 'Auth key saved for user ' . $user_id . '.' );
+		// Persist the auth key site-wide. Not autoloaded: the key is only
+		// needed on NitroSpark REST requests and the admin page.
+		update_option( 'nitrospark_auth_key', $auth_key, false );
+		update_option( 'nitrospark_connected_by', $user_id, false );
+
+		$this->log( 'Auth key saved; connection approved by user ' . $user_id . '.' );
 
 		return new \WP_REST_Response( array( 'success' => true ), 200 );
 	}

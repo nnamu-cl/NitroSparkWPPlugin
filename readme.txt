@@ -33,7 +33,9 @@ This plugin connects your WordPress or WooCommerce site to your NitroSpark AI ac
 
 **How authentication works:**
 
-You connect your site from the NitroSpark admin page in your WordPress dashboard. This generates a one-time connection link; after you approve the connection in your NitroSpark account, NitroSpark issues a secret key for your site. Every subsequent request from the NitroSpark platform to your site must carry this key and is executed with the permissions of the administrator who connected the site. Your WordPress username and password are never transmitted to or stored by NitroSpark AI.
+You connect your site from the NitroSpark admin page in your WordPress dashboard. This generates a one-time connection link; after you approve the connection in your NitroSpark account, NitroSpark issues a secret key for your site. Every subsequent request from the NitroSpark platform to your site must carry this key.
+
+NitroSpark never acts as an administrator. When you connect, the plugin creates a dedicated user named "NitroSpark" with a custom "NitroSpark Publisher" role, and every NitroSpark request runs as that user. The role can only create and edit posts, publish posts and upload media (plus read-only access to WooCommerce products and product categories, which WooCommerce's API requires). It cannot manage plugins, themes, users or settings, cannot post unfiltered HTML, and cannot sign in or use application passwords. Your WordPress username and password are never transmitted to or stored by NitroSpark AI.
 
 == External services ==
 
@@ -43,11 +45,11 @@ Nothing is sent to NitroSpark until a site administrator clicks Connect on the N
 
 * **When you click Connect:** your browser is sent to https://app.nitrospark.ai/wordpress-connect with your site URL, site name, the plugin's callback URL and a one-time state token. After you approve the connection, NitroSpark sends a site-specific secret key back to your site, which the plugin stores.
 * **When the NitroSpark admin page loads (once connected):** the page requests your NitroSpark account details and content library from https://app.nitrospark.ai, authenticated with the stored key.
-* **While connected:** the NitroSpark platform calls this plugin's REST endpoints (authenticated with the stored key) to read and publish posts and pages, upload media to your library, read categories and pages, and, if WooCommerce is active, read your product catalog and product categories.
+* **While connected:** the NitroSpark platform calls this plugin's REST endpoints (authenticated with the stored key) to read, publish and update posts, upload media to your library, read categories and pages, and, if WooCommerce is active, read your product catalog and product categories.
 
-Deleting the plugin removes the stored key; the connection can also be revoked from your NitroSpark account, after which the key no longer works.
+Deleting the plugin removes the stored key and the NitroSpark user (its posts are reassigned to the administrator who connected the site); the connection can also be revoked from your NitroSpark account, after which the key no longer works.
 
-* NitroSpark AI Terms of Service: https://nitrospark.ai/terms
+* NitroSpark AI Terms of Service: https://nitrospark.ai/terms-and-conditions/
 * NitroSpark AI Privacy Policy: https://nitrospark.ai/privacy-policy
 
 == Source Code & Build Instructions ==

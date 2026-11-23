@@ -47,6 +47,9 @@ final class NitroSpark {
 		register_activation_hook( NITROSPARK_PLUGIN_FILE, [ $this, 'activate' ] );
 		register_deactivation_hook( NITROSPARK_PLUGIN_FILE, [ $this, 'deactivate' ] );
 
+		// Guards for the restricted NitroSpark publisher account.
+		NitroSpark\Core\ServiceUser::register_hooks();
+
 		// Boot REST API.
 		$api = new NitroSpark\Core\Api();
 		$api->init();

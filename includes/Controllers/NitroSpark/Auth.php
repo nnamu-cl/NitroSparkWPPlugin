@@ -2,12 +2,14 @@
 
 namespace NitroSpark\Controllers\NitroSpark;
 
+use NitroSpark\Core\ServiceUser;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Permission check for all NitroSpark proxy routes.
+ * Permission check for all NitroSpark content routes.
  *
  * These routes are called server-to-server by the NitroSpark platform,
  * never by a browser, so cookie/nonce authentication does not apply.
@@ -19,9 +21,11 @@ class Auth {
 
 	/**
 	 * Validates the X-NitroSpark-Key request header against the stored
-	 * auth key, then runs the request as the WordPress user who connected
-	 * the site. Requests without a valid key are rejected before any
-	 * route callback runs.
+	 * auth key, then runs the request as the dedicated NitroSpark service
+	 * user (never as an administrator). That user's role only allows
+	 * writing posts and uploading media, so WordPress core capability checks
+	 * limit every request to content work. Requests without a valid key are
+	 * rejected before any route callback runs.
 	 *
 	 * @param \WP_REST_Request $request Current request.
 	 * @return true|\WP_Error
@@ -38,19 +42,18 @@ class Auth {
 			);
 		}
 
-		$user_id = (int) get_option( 'nitrospark_auth_user_id', 0 );
-		$user    = $user_id ? get_user_by( 'id', $user_id ) : false;
+		$user = ServiceUser::get();
 
-		if ( ! $user || ! user_can( $user, 'edit_posts' ) ) {
+		if ( ! $user ) {
 			return new \WP_Error(
 				'nitrospark_no_user',
-				__( 'The connected NitroSpark user no longer exists or lacks permissions. Please reconnect the site.', 'nitrospark' ),
+				__( 'The NitroSpark publisher account is missing or has been changed. Please reconnect the site.', 'nitrospark' ),
 				array( 'status' => 403 )
 			);
 		}
 
-		// Run the proxied request as the user who authorized the connection,
-		// so core REST capability checks apply to everything we dispatch.
+		// Run as the restricted NitroSpark publisher so core REST capability
+		// checks (edit_posts, upload_files, ...) apply to everything we dispatch.
 		wp_set_current_user( $user->ID );
 
 		return true;
