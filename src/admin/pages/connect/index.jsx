@@ -6,6 +6,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
+import Logo from '@/components/Logo';
 
 export default function ConnectPage() {
 	const connectUrl = window.nitrospark?.connectUrl;
@@ -19,7 +20,8 @@ export default function ConnectPage() {
 		<div className="flex items-center justify-center " style={ {   minHeight: 'calc(100vh - 100px)' } }>
 			<Card className="mx-auto max-w-sm">
 				<CardHeader>
-					<CardTitle className="text-2xl">Connect NitroSpark</CardTitle>
+					<Logo className="mb-4 h-10 w-auto text-primary" />
+					<CardTitle className="text-2xl">Connect your account</CardTitle>
 					<CardDescription>
 						This plugin requires a connected NitroSpark account to function.
 						Please connect your account to continue.

@@ -3,7 +3,7 @@
  * Plugin Name:       NitroSpark
  * Plugin URI:        https://nitrospark.ai/
  * Description:       Connect your WordPress site to NitroSpark AI for automated content publishing, internal linking, SEO optimization, and WooCommerce product analysis.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 6.6
  * Requires PHP:      8.1
  * Author:            nitrospark
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NITROSPARK_VERSION', '1.0.0' );
+define( 'NITROSPARK_VERSION', '1.0.1' );
 define( 'NITROSPARK_PLUGIN_FILE', __FILE__ );
 define( 'NITROSPARK_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'NITROSPARK_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
