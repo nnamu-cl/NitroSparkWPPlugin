@@ -4,7 +4,7 @@ Tags: seo, ai, content, automation, woocommerce
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -115,6 +115,9 @@ Post in the [support forum](https://wordpress.org/support/plugin/nitrospark/), c
 
 == Changelog ==
 
+= 1.0.2 =
+* Tweak: the plugin author now shows as NitroSpark AI, linked to nitrospark.ai, on the Plugins screen.
+
 = 1.0.1 =
 * New: NitroSpark branding in the WordPress admin, with the brand colours, logo and a rocket menu icon.
 * Improved: clearer plugin description, installation steps and FAQ.
@@ -123,6 +126,9 @@ Post in the [support forum](https://wordpress.org/support/plugin/nitrospark/), c
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+Updates the plugin author name and link. No functional changes.
 
 = 1.0.1 =
 Refreshed NitroSpark branding in your WordPress admin and an improved plugin description.
